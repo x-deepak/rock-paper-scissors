@@ -2,6 +2,8 @@
 let humanScore = 0;
 let computerScore = 0;
 
+
+
 function getComputerChoice() {
     let random = Math.random() * 10;
     if (random <= 10 / 3) return "rock";
@@ -9,60 +11,72 @@ function getComputerChoice() {
     else return "scissor";
 }
 
-function getHumanChoice() {
-    while (true) {
-        let userInput = prompt("Enter Rock/paper/scissor:", "invalid");
-        userInput = userInput.toLowerCase();
-        if (userInput === "rock" || userInput === "paper" || userInput === "scissor") {
-            return userInput;
-        }
-        else alert("Please enter a valid choice in the next prompt!!");
-    }
-}
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
+    let userChoiceShow = document.querySelector("#user-choice");
+    userChoiceShow.innerText = `==${humanChoice.toUpperCase()}==`;
+    let computerChoice = getComputerChoice();
+    let computerChoiceShow = document.querySelector("#bot-choice");
+    computerChoiceShow.innerText = `==${computerChoice.toUpperCase()}==`;
+
+    let userWon = 0;
+    if(humanChoice!==computerChoice) 
     if (humanChoice === "rock") {
         if (computerChoice === "paper")
-            ++computerScore && alert("You lose! Paper beats Rock");
+            ++computerScore && (userWon--);
         else
-            ++humanScore && alert("You win! Rock beats Scissor");
+            ++humanScore && (userWon++);
     }
     else if (humanChoice === "paper") {
         if (computerChoice === "scissor")
-            ++computerScore && alert("You lose! Scissor beats Paper");
+            ++computerScore && (userWon--);
         else
-            ++humanScore && alert("You win! Paper beats Rock");
+            ++humanScore && (userWon++);
     }
     else {
         if (computerChoice === "rock")
-            ++computerScore && alert("You lose! Rock beats Scissor");
+            ++computerScore && (userWon--);
         else
-            ++humanScore && alert("You win! Scissor beats Paper");
+            ++humanScore && (userWon++);
     }
+
+
+    let resultShow = document.querySelector(".result-box");
+    if (userWon==-1) (resultShow.innerHTML = "YOU LOST") && updateColor("red","green");
+    else if(userWon==0) (resultShow.innerHTML = "DRAW") && updateColor("red","red");
+    else (resultShow.innerHTML = "YOU WON") && updateColor("green","red");
+    updateScore();
 }
 
-function displayScore() {
-    let scoreTable = [["UserScore", humanScore], ["ComputerScore", computerScore]];
-    console.log("Score Table:");
-    console.table(scoreTable);
+function updateColor(userColor, botColor){
+    let box1 = document.querySelector(".box1");
+    let box3 = document.querySelector(".box3");
+    box1.style["background-color"] = botColor;
+    box3.style["background-color"] = userColor;
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
-    console.log("Final Result:");
-    if (humanScore > computerScore) {
-        console.log("You Won!");
-        displayScore();
-    }
-    else { 
-        console.log("You Lost!"); 
-        displayScore(); 
-    }
+
+function updateScore() {
+    let userTable = document.querySelector("#user-score");
+    userTable.innerText = humanScore;
+    let botTable = document.querySelector("#computer-score");
+    botTable.innerText = computerScore;
 }
 
-// displayScore();
-playGame();
+
+
+
+let choices = document.querySelector(".choices");
+
+choices.addEventListener("click", (e) => {
+    if (e.target.id === "rock"){
+        playRound("rock");
+    }
+    else if (e.target.id === "paper"){
+        playRound("paper");
+    }
+    else if (e.target.id === "scissor"){
+        playRound("scissor");
+    }
+}
+);

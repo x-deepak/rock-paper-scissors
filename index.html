@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
-    <h1>See Console</h1>
+    <h1 class="title">Rock - Paper - Scissor</h1>
+    <div class="box1">
+        <div class="bot">
+            <img id="bot-image" src="bot.jpg" alt="bot image">
+            <h3 id="bot-choice">==****==</h3>
+        </div>
+    </div>
+    <div class="result-box"></div>
+    <div class="box3">
+        <h3 id="user-choice">==****==</h3>
+        <div class="choices">
+            <button id="rock">ROCK</button>
+            <button id="paper">PAPER</button>
+            <button id="scissor">SCISSOR</button>
+        </div>
+        <div><img id="user-image" src="user.jpg" alt="user image"></div>
+    </div>
+    <div class="score-box">
+        <table>
+            <caption>Score</caption>
+            <tr>
+                <th>USER</th>
+                <th>COMPUTER</th>
+            </tr>
+            <tr>
+                <td id="user-score">0</td>
+                <td id="computer-score">0</td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>
